@@ -1,19 +1,19 @@
 const Player = document.getElementById("player");
 const Score = document.getElementById("score");
 const Timer = document.getElementById("timer");
+const Container = document.getElementById("container");
 
 let ScoreCounter = 0;
-let TimerTime = 20;
+let TimerTime = 60;
 let IntervalCounter = 600;
 let interval = setInterval(StartTimer, IntervalCounter);
 
 Player.addEventListener("click", () => {
   const Error = ["system error"];
-  const RandomPositionX = Math.floor(Math.random() * 300);
-  const RandomPositionY = Math.floor(Math.random() * 300);
+  let RandomPositionX = Math.floor(Math.random() * 500);
+  const RandomPositionY = Math.floor(Math.random() * 500);
   const RandomScale = Math.floor(Math.random() * 70);
   ScoreCounter++;
-  TimerTime += 2;
 
   for (let _i = 0; _i <= ScoreCounter; _i++) {
     if (ScoreCounter <= 0 && typeof ScoreCounter != "object") {
@@ -67,7 +67,13 @@ function StartTimer() {
 }
 
 function EndGame() {
-  Swal.fire("Oops time out, You lose " + "Your score is " + ScoreCounter);
+  Swal.fire("Oops time out, You lose " + "Your score is " + ScoreCounter).then(
+    (result) => {
+      if (result != true) {
+        window.location.reload();
+      }
+    }
+  );
   if (interval && typeof interval != "object") {
     clearInterval(interval);
   }
